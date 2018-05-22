@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Story should renders default 1`] = `
+<Styled(Link)
+  to="#"
+>
+  <styled.div>
+    <styled.img
+      src="dummy.png"
+    />
+    <styled.p>
+      Jan 01, 2017
+    </styled.p>
+    <styled.h1>
+      Introduction to React
+    </styled.h1>
+    <styled.p>
+      by 
+      Gattigaga Hayyuta Dewa
+    </styled.p>
+  </styled.div>
+</Styled(Link)>
+`;
