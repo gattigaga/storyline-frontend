@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MiniStory should renders default 1`] = `
+<Styled(Link)
+  to="#"
+>
+  <styled.div>
+    <styled.span>
+      05
+    </styled.span>
+    <styled.img
+      src="dummy.png"
+    />
+    <styled.div>
+      <styled.p>
+        Jan 01, 2017
+      </styled.p>
+      <styled.h1>
+        Introduction to React
+      </styled.h1>
+      <styled.p>
+        by 
+        Gattigaga Hayyuta Dewa
+      </styled.p>
+    </styled.div>
+  </styled.div>
+</Styled(Link)>
+`;
