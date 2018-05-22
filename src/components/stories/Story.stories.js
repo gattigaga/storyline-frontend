@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MemoryRouter } from "react-router-dom";
 
 import Story from "../Story";
-import image from "../../../assets/images/dummy.png";
+import image from "../../../assets/images/dummy1.jpeg";
 
 const Container = styled.div`
   display: flex;
@@ -32,7 +32,7 @@ storiesOf("Story", module)
     <Story
       image={image}
       title="Introduction to React Navigation"
-      author="Gattigaga Hayyuta Dewa"
+      author="Brendan Eich"
       date="Jan 01, 2017"
       href="#"
     />
