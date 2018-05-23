@@ -64,6 +64,7 @@ const StoryHead = ({
   date,
   onClickFollow,
   isFollowed,
+  isAuthor,
   href
 }) => (
   <Container className={className}>
@@ -73,11 +74,13 @@ const StoryHead = ({
     <Info>
       <Row>
         <Name to={href}>{name}</Name>
-        <MiniButton
-          caption={isFollowed ? "Unfollow" : "Follow"}
-          onClick={onClickFollow}
-          isOutlined={!isFollowed}
-        />
+        {!isAuthor && (
+          <MiniButton
+            caption={isFollowed ? "Unfollow" : "Follow"}
+            onClick={onClickFollow}
+            isOutlined={!isFollowed}
+          />
+        )}
       </Row>
       <Description>{description}</Description>
       <Date>{date}</Date>
@@ -93,6 +96,7 @@ StoryHead.propTypes = {
   className: PropTypes.string,
   onClickFollow: PropTypes.func,
   isFollowed: PropTypes.bool,
+  isAuthor: PropTypes.bool,
   href: PropTypes.string
 };
 

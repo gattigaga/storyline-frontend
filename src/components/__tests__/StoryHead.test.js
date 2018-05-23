@@ -28,8 +28,14 @@ describe("StoryHead", () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it("should renders default", () => {
+  it("should renders as followed", () => {
     const { wrapper } = setup({ isFollowed: true });
+
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it("should renders from author point of view", () => {
+    const { wrapper } = setup({ isAuthor: true });
 
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

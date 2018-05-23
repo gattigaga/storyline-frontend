@@ -1,5 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`StoryHead should renders as followed 1`] = `
+<styled.div>
+  <Link
+    replace={false}
+    to="#"
+  >
+    <Avatar
+      size={64}
+      src="dummy.png"
+    />
+  </Link>
+  <styled.div>
+    <styled.div>
+      <Styled(Link)
+        to="#"
+      >
+        Brendan Eich
+      </Styled(Link)>
+      <Styled(Button)
+        caption="Unfollow"
+        isOutlined={false}
+        onClick={[Function]}
+      />
+    </styled.div>
+    <styled.p />
+    <styled.p>
+      Jan 01, 2018
+    </styled.p>
+  </styled.div>
+</styled.div>
+`;
+
 exports[`StoryHead should renders default 1`] = `
 <styled.div>
   <Link
@@ -32,7 +64,7 @@ exports[`StoryHead should renders default 1`] = `
 </styled.div>
 `;
 
-exports[`StoryHead should renders default 2`] = `
+exports[`StoryHead should renders from author point of view 1`] = `
 <styled.div>
   <Link
     replace={false}
@@ -50,11 +82,6 @@ exports[`StoryHead should renders default 2`] = `
       >
         Brendan Eich
       </Styled(Link)>
-      <Styled(Button)
-        caption="Unfollow"
-        isOutlined={false}
-        onClick={[Function]}
-      />
     </styled.div>
     <styled.p />
     <styled.p>
