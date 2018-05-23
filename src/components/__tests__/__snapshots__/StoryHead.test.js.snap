@@ -2,15 +2,22 @@
 
 exports[`StoryHead should renders default 1`] = `
 <styled.div>
-  <Avatar
-    size={64}
-    src="dummy.png"
-  />
+  <Link
+    replace={false}
+    to="#"
+  >
+    <Avatar
+      size={64}
+      src="dummy.png"
+    />
+  </Link>
   <styled.div>
     <styled.div>
-      <styled.p>
+      <Styled(Link)
+        to="#"
+      >
         Brendan Eich
-      </styled.p>
+      </Styled(Link)>
       <Styled(Button)
         caption="Follow"
         isOutlined={true}
@@ -27,15 +34,22 @@ exports[`StoryHead should renders default 1`] = `
 
 exports[`StoryHead should renders default 2`] = `
 <styled.div>
-  <Avatar
-    size={64}
-    src="dummy.png"
-  />
+  <Link
+    replace={false}
+    to="#"
+  >
+    <Avatar
+      size={64}
+      src="dummy.png"
+    />
+  </Link>
   <styled.div>
     <styled.div>
-      <styled.p>
+      <Styled(Link)
+        to="#"
+      >
         Brendan Eich
-      </styled.p>
+      </Styled(Link)>
       <Styled(Button)
         caption="Unfollow"
         isOutlined={false}

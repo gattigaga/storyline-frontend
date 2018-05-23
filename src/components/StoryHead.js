@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import Avatar from "./Avatar";
 import Button from "./Button";
@@ -15,24 +16,33 @@ const Info = styled.div`
   margin-left: 16px;
 `;
 
-const Name = styled.p`
+const Name = styled(Link)`
   font-size: 12px;
   font-family: Roboto;
   font-weight: bold;
   color: #333;
   margin: 0px;
   margin-right: 8px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
-const Description = Name.extend`
-  color: #aaa;
+const Description = styled.p`
+  font-size: 12px;
+  font-family: Roboto;
   font-weight: normal;
+  color: #aaa;
+  margin: 0px;
   margin-bottom: 12px;
 `;
 
-const Date = Name.extend`
+const Date = Description.extend`
   color: #e74c3c;
   font-weight: normal;
+  margin: 0px;
 `;
 
 const Row = styled.div`
@@ -53,13 +63,16 @@ const StoryHead = ({
   description,
   date,
   onClickFollow,
-  isFollowed
+  isFollowed,
+  href
 }) => (
   <Container className={className}>
-    <Avatar src={avatar} />
+    <Link to={href}>
+      <Avatar src={avatar} />
+    </Link>
     <Info>
       <Row>
-        <Name>{name}</Name>
+        <Name to={href}>{name}</Name>
         <MiniButton
           caption={isFollowed ? "Unfollow" : "Follow"}
           onClick={onClickFollow}
@@ -79,7 +92,12 @@ StoryHead.propTypes = {
   date: PropTypes.string,
   className: PropTypes.string,
   onClickFollow: PropTypes.func,
-  isFollowed: PropTypes.bool
+  isFollowed: PropTypes.bool,
+  href: PropTypes.string
+};
+
+StoryHead.defaultProps = {
+  href: "#"
 };
 
 export default StoryHead;
