@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryHead should renders default 1`] = `
+<styled.div>
+  <Avatar
+    size={64}
+    src="dummy.png"
+  />
+  <styled.div>
+    <styled.div>
+      <styled.p>
+        Brendan Eich
+      </styled.p>
+      <Styled(Button)
+        caption="Follow"
+        isOutlined={true}
+        onClick={[Function]}
+      />
+    </styled.div>
+    <styled.p />
+    <styled.p>
+      Jan 01, 2018
+    </styled.p>
+  </styled.div>
+</styled.div>
+`;
+
+exports[`StoryHead should renders default 2`] = `
+<styled.div>
+  <Avatar
+    size={64}
+    src="dummy.png"
+  />
+  <styled.div>
+    <styled.div>
+      <styled.p>
+        Brendan Eich
+      </styled.p>
+      <Styled(Button)
+        caption="Unfollow"
+        isOutlined={false}
+        onClick={[Function]}
+      />
+    </styled.div>
+    <styled.p />
+    <styled.p>
+      Jan 01, 2018
+    </styled.p>
+  </styled.div>
+</styled.div>
+`;
