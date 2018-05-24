@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 
 import Avatar from "../Avatar";
-import image from "../../../assets/images/dummy.png";
+import image from "../../assets/images/dummy.png";
 
 storiesOf("Avatar", module)
   .add("default", () => <Avatar src={image} alt="Buyer" />)

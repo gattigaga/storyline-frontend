@@ -3,7 +3,7 @@ import { storiesOf, action } from "@storybook/react";
 import { MemoryRouter } from "react-router-dom";
 
 import StoryHead from "../StoryHead";
-import image from "../../../assets/images/dummy1.jpeg";
+import image from "../../assets/images/dummy1.jpeg";
 
 storiesOf("StoryHead", module)
   .addDecorator(story => (

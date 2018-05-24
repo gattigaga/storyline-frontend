@@ -7,7 +7,7 @@ import MiniStory, { Index } from "../MiniStory";
 describe("MiniStory", () => {
   const setup = propOverrides => {
     const props = {
-      image: require("../../../assets/images/dummy.png"),
+      image: "dummy.png",
       title: "Introduction to React",
       author: "Gattigaga Hayyuta Dewa",
       date: "Jan 01, 2017",

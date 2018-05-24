@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { MemoryRouter } from "react-router-dom";
 
 import Story from "../Story";
-import image from "../../../assets/images/dummy1.jpeg";
+import image from "../../assets/images/dummy1.jpeg";
 
 const Container = styled.div`
   display: flex;

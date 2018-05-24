@@ -7,7 +7,7 @@ import Avatar from "../Avatar";
 describe("Avatar", () => {
   const setup = propOverrides => {
     const props = {
-      src: require("../../../assets/images/dummy.png"),
+      src: "dummy.png",
       alt: "Profile",
       ...propOverrides
     };

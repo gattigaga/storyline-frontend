@@ -7,7 +7,7 @@ import StoryHead, { MiniButton } from "../StoryHead";
 describe("StoryHead", () => {
   const setup = propOverrides => {
     const props = {
-      avatar: require("../../../assets/images/dummy.png"),
+      avatar: "dummy.png",
       name: "Brendan Eich",
       onClickFollow: jest.fn(),
       date: "Jan 01, 2018",
