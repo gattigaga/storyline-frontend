@@ -4,6 +4,6 @@ import App from "./App";
 
 import "normalize.css";
 import "typeface-roboto";
-import "typeface-open-sans";
+import "typeface-roboto-slab";
 
 ReactDOM.render(<App />, document.getElementById("root"));
