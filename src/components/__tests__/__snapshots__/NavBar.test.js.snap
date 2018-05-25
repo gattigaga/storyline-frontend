@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavBar should renders default 1`] = `
+<styled.div>
+  <styled.div>
+    <styled.h1>
+      STORYLINE
+    </styled.h1>
+    <styled.ul>
+      <styled.li
+        key="0"
+      >
+        <Styled(Link)
+          to="/"
+        >
+          Home
+        </Styled(Link)>
+      </styled.li>
+      <styled.li
+        key="1"
+      >
+        <Styled(Link)
+          to="/topic/technology"
+        >
+          Technology
+        </Styled(Link)>
+      </styled.li>
+      <styled.li
+        key="2"
+      >
+        <Styled(Link)
+          to="/topic/science"
+        >
+          Science
+        </Styled(Link)>
+      </styled.li>
+    </styled.ul>
+  </styled.div>
+</styled.div>
+`;
