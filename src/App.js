@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
+import SingleCategory from "./pages/SingleCategory";
 
 const Container = styled.div``;
 
@@ -14,15 +15,15 @@ const menuItems = [
   },
   {
     label: "Technology",
-    url: "/"
+    url: "/category/technology"
   },
   {
     label: "Science",
-    url: "/"
+    url: "/category/science"
   },
   {
     label: "More",
-    url: "/"
+    url: "/category"
   }
 ];
 
@@ -31,7 +32,8 @@ const App = () => (
     <Router>
       <div>
         <NavBar items={menuItems} />
-        <Route path="/" component={Home} />
+        <Route path="/" component={Home} exact />
+        <Route path="/category/:categoryName" component={SingleCategory} />
       </div>
     </Router>
   </Container>
