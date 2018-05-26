@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import SingleCategory from "./pages/SingleCategory";
+import SingleStory from "./pages/SingleStory";
 
 const Container = styled.div``;
 
@@ -34,6 +35,7 @@ const App = () => (
         <NavBar items={menuItems} />
         <Route path="/" component={Home} exact />
         <Route path="/category/:categoryName" component={SingleCategory} />
+        <Route path="/:username/:slug" component={SingleStory} />
       </div>
     </Router>
   </Container>
