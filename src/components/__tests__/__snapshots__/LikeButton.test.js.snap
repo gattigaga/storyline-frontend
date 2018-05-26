@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LikeButton should renders as liked 1`] = `
+<styled.div
+  isLiked={true}
+  onClick={[Function]}
+>
+  <Styled(IoAndroidFavorite) />
+</styled.div>
+`;
+
+exports[`LikeButton should renders default 1`] = `
+<styled.div
+  isLiked={false}
+  onClick={[Function]}
+>
+  <Styled(IoAndroidFavoriteOutline) />
+</styled.div>
+`;
