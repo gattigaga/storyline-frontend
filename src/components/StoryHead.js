@@ -8,7 +8,6 @@ import Button from "./Button";
 
 const Container = styled.div`
   display: flex;
-  margin-bottom: 32px;
 `;
 
 const Info = styled.div`
