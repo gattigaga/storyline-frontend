@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import axios from "axios";
 
+import { apiURL } from "./config/app";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import SingleCategory from "./pages/SingleCategory";
@@ -29,6 +31,8 @@ const menuItems = [
     url: "/category"
   }
 ];
+
+axios.defaults.baseURL = apiURL;
 
 const App = () => (
   <Container>
