@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stat should renders default 1`] = `
+<div>
+  <styled.p>
+    32,000
+  </styled.p>
+  <styled.p>
+    Followers
+  </styled.p>
+</div>
+`;
