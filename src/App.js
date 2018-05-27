@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import SingleCategory from "./pages/SingleCategory";
 import SingleStory from "./pages/SingleStory";
 import Profile from "./pages/Profile";
+import Category from "./pages/Category";
 
 const Container = styled.div``;
 
@@ -35,9 +36,10 @@ const App = () => (
       <div>
         <NavBar items={menuItems} />
         <Route path="/" component={Home} exact />
+        <Route path="/category" component={Category} exact />
         <Route path="/category/:categoryName" component={SingleCategory} />
-        <Route path="/:username" component={Profile} exact />
-        <Route path="/:username/:slug" component={SingleStory} />
+        <Route path="/@:username" component={Profile} exact />
+        <Route path="/@:username/:slug" component={SingleStory} />
       </div>
     </Router>
   </Container>
