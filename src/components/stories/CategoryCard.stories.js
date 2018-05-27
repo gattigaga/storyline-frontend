@@ -24,4 +24,13 @@ storiesOf("CategoryCard", module)
       onClickChoose={action("click")}
       isChosen
     />
+  ))
+  .add("without Button", () => (
+    <CategoryCard
+      label="Technology"
+      totalStories={1324}
+      href="/category/technology"
+      onClickChoose={action("click")}
+      withoutButton
+    />
   ));

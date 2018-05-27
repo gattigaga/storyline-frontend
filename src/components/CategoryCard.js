@@ -11,9 +11,10 @@ const StyledLink = styled(Link)`
 `;
 
 const Container = styled.div`
-  width: 320px;
+  flex: 1;
   padding: 24px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
   cursor: pointer;
 `;
 
@@ -38,20 +39,23 @@ const CategoryCard = ({
   totalStories,
   href,
   isChosen,
+  withoutButton,
   onClickChoose
 }) => (
   <StyledLink to={href}>
     <Container>
       <Label>{label}</Label>
       <Total>{separateByComma(totalStories)} stories</Total>
-      <Button
-        caption={isChosen ? "Chosen" : "Choose"}
-        onClick={event => {
-          event.preventDefault();
-          onClickChoose();
-        }}
-        isOutlined={!isChosen}
-      />
+      {!withoutButton && (
+        <Button
+          caption={isChosen ? "Chosen" : "Choose"}
+          onClick={event => {
+            event.preventDefault();
+            onClickChoose();
+          }}
+          isOutlined={!isChosen}
+        />
+      )}
     </Container>
   </StyledLink>
 );
@@ -61,6 +65,7 @@ CategoryCard.propTypes = {
   totalStories: PropTypes.number,
   href: PropTypes.string,
   isChosen: PropTypes.bool,
+  withoutButton: PropTypes.bool,
   onClickChoose: PropTypes.func
 };
 

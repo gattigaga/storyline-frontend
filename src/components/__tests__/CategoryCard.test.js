@@ -29,6 +29,12 @@ describe("CategoryCard", () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it("should renders without button", () => {
+    const { wrapper } = setup({ withoutButton: true });
+
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it("should renders as chosen", () => {
     const { wrapper } = setup({ isChosen: true });
 

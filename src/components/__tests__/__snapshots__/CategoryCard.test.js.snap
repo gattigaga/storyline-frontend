@@ -41,3 +41,19 @@ exports[`CategoryCard should renders default 1`] = `
   </styled.div>
 </Styled(Link)>
 `;
+
+exports[`CategoryCard should renders without button 1`] = `
+<Styled(Link)
+  to="/category/technology"
+>
+  <styled.div>
+    <styled.h1>
+      Technology
+    </styled.h1>
+    <styled.p>
+      15,326
+       stories
+    </styled.p>
+  </styled.div>
+</Styled(Link)>
+`;
