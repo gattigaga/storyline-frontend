@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
 import SingleCategory from "./pages/SingleCategory";
 import SingleStory from "./pages/SingleStory";
+import Profile from "./pages/Profile";
 
 const Container = styled.div``;
 
@@ -35,6 +36,7 @@ const App = () => (
         <NavBar items={menuItems} />
         <Route path="/" component={Home} exact />
         <Route path="/category/:categoryName" component={SingleCategory} />
+        <Route path="/:username" component={Profile} exact />
         <Route path="/:username/:slug" component={SingleStory} />
       </div>
     </Router>
