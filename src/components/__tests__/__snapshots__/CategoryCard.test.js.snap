@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CategoryCard should renders as chosen 1`] = `
+<Styled(Link)
+  to="/category/technology"
+>
+  <styled.div>
+    <styled.h1>
+      Technology
+    </styled.h1>
+    <styled.p>
+      15,326
+       stories
+    </styled.p>
+    <Button
+      caption="Chosen"
+      isOutlined={false}
+      onClick={[Function]}
+    />
+  </styled.div>
+</Styled(Link)>
+`;
+
+exports[`CategoryCard should renders default 1`] = `
+<Styled(Link)
+  to="/category/technology"
+>
+  <styled.div>
+    <styled.h1>
+      Technology
+    </styled.h1>
+    <styled.p>
+      15,326
+       stories
+    </styled.p>
+    <Button
+      caption="Choose"
+      isOutlined={true}
+      onClick={[Function]}
+    />
+  </styled.div>
+</Styled(Link)>
+`;
