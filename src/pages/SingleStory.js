@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
+import axios from "axios";
+import { format } from "date-fns";
 
 import image from "../assets/images/dummy1.jpeg";
+import { separateByComma } from "../helpers/formatter";
 import StoryHead from "../components/StoryHead";
 import LikeButton from "../components/LikeButton";
 
@@ -84,8 +87,61 @@ const LikeCaption = styled.p`
 `;
 
 class SingleStory extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      story: {},
+      author: {},
+      likes: []
+    };
+
+    this.fetchData = this.fetchData.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  /**
+   * Fetch main data from database
+   *
+   * @memberof SingleCategory
+   */
+  async fetchData() {
+    const { match } = this.props;
+
+    try {
+      const resStories = await axios.get(`/stories?slug=${match.params.slug}`);
+      const story = resStories.data[0];
+
+      const [resUser, resCategory, resLikes] = await Promise.all([
+        axios.get(`/users/${story.user}`),
+        axios.get(`/categories/${story.category}`),
+        axios.get(`/likes?storyID=${story._id}`)
+      ]);
+
+      const author = resUser.data;
+      const category = resCategory.data;
+      const likes = resLikes.data;
+
+      this.setState({
+        story: {
+          ...story,
+          category: category.name
+        },
+        author,
+        likes
+      });
+    } catch (error) {
+      console.error(error);
+      alert("Unable to fetch data !");
+    }
+  }
+
   render() {
     const { match } = this.props;
+    const { story, author, likes } = this.state;
 
     return (
       <Container>
@@ -97,67 +153,26 @@ class SingleStory extends Component {
           <Thumbnail src={image} />
           <DarkLayer />
           <Info>
-            <Category>Technology</Category>
-            <Title>Introduce to React Development</Title>
+            <Category>{story.category}</Category>
+            <Title>{story.title}</Title>
             <Row>
               <StoryHead
                 avatar={image}
-                href="http://storyline.com/@brendan"
-                name="Brendan Eich"
-                description="Javascript Inventor at Mozilla"
-                date="Jan 01, 2018"
+                href={`/@${author.username}`}
+                name={author.name}
+                description={author.description}
+                date={format(story.createdAt, "MMM DD, YYYY")}
                 onClickFollow={() => {}}
               />
               <Row>
-                <LikeCaption>1,931 likes</LikeCaption>
+                <LikeCaption>{separateByComma(likes.length)} likes</LikeCaption>
                 <LikeButton />
               </Row>
             </Row>
           </Info>
         </Intro>
         <Wrapper>
-          <Content>
-            <p>
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-            </p>
-            <p>
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-            </p>
-            <p>
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-            </p>
-            <p>
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-            </p>
-            <p>
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-              Getting Real delivers better results because it forces you to deal
-              with the actual problems you’re trying to solve instead of your
-              ideas about those problems. It forces you to deal with reality.
-            </p>
-          </Content>
+          <Content>{story.content}</Content>
         </Wrapper>
       </Container>
     );
