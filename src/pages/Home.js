@@ -12,10 +12,13 @@ import {
   compose,
   flatten,
   groupBy,
-  uniqBy
+  uniqBy,
+  sortBy
 } from "lodash/fp";
 import { format } from "date-fns";
 
+import dummyImage from "../assets/images/dummy1.jpeg";
+import { apiURL } from "../config/app";
 import Story from "../components/Story";
 import MiniStory from "../components/MiniStory";
 
@@ -65,6 +68,8 @@ class Home extends Component {
       storyPacks: []
     };
 
+    this.fetchStoryPacks = this.fetchStoryPacks.bind(this);
+    this.fetchPopularStories = this.fetchPopularStories.bind(this);
     this.fetchData = this.fetchData.bind(this);
   }
 
@@ -79,72 +84,133 @@ class Home extends Component {
    */
   async fetchData() {
     try {
-      const getData = item => item.data;
-      const getStoryPromise = category => {
-        const url = `/stories?categoryID=${category._id}&take=3&sort=desc`;
-        return axios.get(url);
-      };
-      const getUserPromise = story => axios.get(`/users/${story.user}`);
-      const getStoryPack = data => categoryID => {
-        const { stories, categories, users } = data;
-        const getCurrentCategory = find(item => item._id === categoryID);
-        const getCurrentStories = filter(item => item.category === categoryID);
-        const relateWithUser = story => ({
-          ...story,
-          user: users.find(user => user._id === story.user)
-        });
-        const getStories = compose(map(relateWithUser), getCurrentStories);
+      const storyPacks = await this.fetchStoryPacks();
+      const popularStories = await this.fetchPopularStories();
 
-        return {
-          category: getCurrentCategory(categories).name,
-          data: getStories(stories)
-        };
-      };
-      const byLength = length => items => items.length >= length;
-      const getDeepData = compose(flatten, filter(byLength(3)), map(getData));
-      const getRandomCategories = compose(
-        slice(0, 3),
-        shuffle,
-        keys,
-        groupBy("category")
-      );
-      const getUniqueUserPromises = compose(
-        map(getUserPromise),
-        uniqBy("user")
-      );
-
-      const resCategories = await axios.get("/categories");
-      const categories = resCategories.data;
-
-      const promiseStories = categories.map(getStoryPromise);
-      const resStories = await Promise.all(promiseStories);
-      const stories = getDeepData(resStories);
-
-      const promiseUsers = getUniqueUserPromises(stories);
-      const resUsers = await Promise.all(promiseUsers);
-      const users = resUsers.map(getData);
-
-      const getRandomStoryPacks = map(
-        getStoryPack({
-          stories,
-          categories,
-          users
-        })
-      );
-      const randomCategories = getRandomCategories(stories);
-      const randomStoryPacks = getRandomStoryPacks(randomCategories);
-
-      this.setState({
-        storyPacks: randomStoryPacks
-      });
+      this.setState({ storyPacks, popularStories });
     } catch (error) {
       console.error(error);
       alert("Unable to fetch data !");
     }
   }
 
+  /**
+   * Fetch story packs from database
+   *
+   * @memberof Home
+   */
+  fetchStoryPacks() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const getData = item => item.data;
+        const getStoryPromise = category => {
+          const url = `/stories?categoryID=${category._id}&take=3&sort=desc`;
+          return axios.get(url);
+        };
+        const getUserPromise = story => axios.get(`/users/${story.user}`);
+        const getStoryPack = data => categoryID => {
+          const { stories, categories, users } = data;
+          const getCurrentCategory = find(item => item._id === categoryID);
+          const getCurrentStories = filter(
+            item => item.category === categoryID
+          );
+          const relateWithUser = story => ({
+            ...story,
+            user: users.find(user => user._id === story.user)
+          });
+          const getStories = compose(map(relateWithUser), getCurrentStories);
+
+          return {
+            category: getCurrentCategory(categories).name,
+            data: getStories(stories)
+          };
+        };
+        const byLength = length => items => items.length >= length;
+        const getDeepData = compose(flatten, filter(byLength(3)), map(getData));
+        const getRandomCategories = compose(
+          slice(0, 3),
+          shuffle,
+          keys,
+          groupBy("category")
+        );
+        const getUniqueUserPromises = compose(
+          map(getUserPromise),
+          uniqBy("user")
+        );
+
+        const resCategories = await axios.get("/categories");
+        const categories = resCategories.data;
+
+        const promiseStories = categories.map(getStoryPromise);
+        const resStories = await Promise.all(promiseStories);
+        const stories = getDeepData(resStories);
+
+        const promiseUsers = getUniqueUserPromises(stories);
+        const resUsers = await Promise.all(promiseUsers);
+        const users = resUsers.map(getData);
+
+        const getRandomStoryPacks = map(
+          getStoryPack({
+            stories,
+            categories,
+            users
+          })
+        );
+        const randomCategories = getRandomCategories(stories);
+        const randomStoryPacks = getRandomStoryPacks(randomCategories);
+
+        resolve(randomStoryPacks);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  /**
+   * Fetch popular stories from database
+   *
+   * @memberof Home
+   */
+  fetchPopularStories() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const getData = item => item.data;
+        const getStoryPromise = storyID => axios.get(`/stories/${storyID}`);
+        const getUserPromise = story => axios.get(`/users/${story.user}`);
+        const relateWithUser = users => story => {
+          const user = users.find(user => user._id === story.user);
+          return { ...story, user };
+        };
+        const getPopularStoryPromises = compose(
+          map(getStoryPromise),
+          keys,
+          groupBy("story"),
+          flatten,
+          slice(0, 5),
+          sortBy([item => -item.length]),
+          groupBy("story")
+        );
+
+        const resLikes = await axios.get("/likes");
+        const likes = resLikes.data;
+
+        const promisePopularStories = getPopularStoryPromises(likes);
+        const resPopularStories = await Promise.all(promisePopularStories);
+        const popularStories = resPopularStories.map(getData);
+
+        const promiseUsers = popularStories.map(getUserPromise);
+        const resUsers = await Promise.all(promiseUsers);
+        const users = resUsers.map(getData);
+
+        resolve(popularStories.map(relateWithUser(users)));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   render() {
-    const { storyPacks } = this.state;
+    const { storyPacks, popularStories } = this.state;
 
     return (
       <Container>
@@ -158,31 +224,44 @@ class Home extends Component {
               <div>
                 <Label>{storyPack.category}</Label>
                 <DistributedRow>
-                  {storyPack.data.map(story => (
-                    <Story
-                      image={require("../assets/images/dummy1.jpeg")}
-                      title={story.title}
-                      author={story.user.name}
-                      date={format(story.createdAt, "MMM DD, YYYY")}
-                      href={`/@${story.user.username}/${story.slug}`}
-                    />
-                  ))}
+                  {storyPack.data.map(story => {
+                    const thumbnail = story.photo
+                      ? `${apiURL}/public/images/stories/${story.photo}`
+                      : dummyImage;
+
+                    return (
+                      <Story
+                        image={thumbnail}
+                        title={story.title}
+                        author={story.user.name}
+                        date={format(story.createdAt, "MMM DD, YYYY")}
+                        href={`/@${story.user.username}/${story.slug}`}
+                      />
+                    );
+                  })}
                 </DistributedRow>
               </div>
             ))}
           </Content>
           <Sidebar>
             <Label>Most Popular</Label>
-            {[...Array(5)].map((_, index) => (
-              <MiniStory
-                index={index + 1}
-                image={require("../assets/images/dummy1.jpeg")}
-                title="Introduction to React Navigation"
-                author="Brendan Eich"
-                date="Jan 01, 2017"
-                href="#"
-              />
-            ))}
+            {popularStories.map((story, index) => {
+              const thumbnail = story.photo
+                ? `${apiURL}/public/images/stories/${story.photo}`
+                : dummyImage;
+
+              return (
+                <MiniStory
+                  key={story._id}
+                  index={index + 1}
+                  image={thumbnail}
+                  title={story.title}
+                  author={story.user.name}
+                  date={format(story.createdAt, "MMM DD, YYYY")}
+                  href={`/@${story.user.username}/${story.slug}`}
+                />
+              );
+            })}
           </Sidebar>
         </Wrapper>
       </Container>
