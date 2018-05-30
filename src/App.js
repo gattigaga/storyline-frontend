@@ -10,6 +10,7 @@ import SingleCategory from "./pages/SingleCategory";
 import SingleStory from "./pages/SingleStory";
 import Profile from "./pages/Profile";
 import Category from "./pages/Category";
+import NotFound from "./pages/NotFound";
 
 const Container = styled.div``;
 
@@ -44,6 +45,7 @@ const App = () => (
         <Route path="/category/:categoryName" component={SingleCategory} />
         <Route path="/@:username" component={Profile} exact />
         <Route path="/@:username/:slug" component={SingleStory} />
+        <Route component={NotFound} />
       </div>
     </Router>
   </Container>
